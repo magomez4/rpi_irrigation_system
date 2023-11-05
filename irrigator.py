@@ -43,9 +43,9 @@ def waitDays(numDays):
 
 try:
 	while True:
-		relay.close() # start watering
+		relay.closeRelay() # start watering
 		time.sleep(10) # water for 10 secs
-		relay.open() # stop watering
+		relay.openRelay() # stop watering
 		waitDays(7)
 except KeyboardInterrupt:
 	GPIO.cleanup()
