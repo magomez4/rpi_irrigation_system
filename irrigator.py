@@ -15,13 +15,20 @@ class RelayController:
 		
 	def closeRelay(self):
 		if GPIO.input(self.signalPin):
-			#print("Relay is closed")
+			print("Relay is closed")
 			print(" ")
 		else:
 			GPIO.output(self.signalPin, GPIO.HIGH)
+			print("closing relay")
+			print(" ")
+
 	
 	def openRelay(self):
 		GPIO.output(self.signalPin, GPIO.LOW)
+		print("opening relay")
+		print(" ")
+
+
 		
 	def closeAndOpen(self):
 		GPIO.output(self.signalPin, GPIO.HIGH)
