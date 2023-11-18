@@ -74,9 +74,9 @@ def waitDays(numDays):
 
 try:
 	while True:
-		florNoche.waterPlant()
-		sabila.waterPlant()
 		potos.waterPlant()
+		sabila.waterPlant()
+		florNoche.waterPlant()
 		miniSabila.waterPlant()
 		waitDays(7)
 except KeyboardInterrupt:

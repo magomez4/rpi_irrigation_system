@@ -44,8 +44,16 @@ def waitDays(numDays):
 		time.sleep(secsPerDay)
 		daysWaited = daysWaited + 1
 
+plantDict = {
+	"potos":18,
+	"sabila":15,
+	"miniSabila":23,
+	"FlorNoche":14
+}
 
-pinID = int(sys.argv[1])
+plantName = sys.argv[1]
+#pinID = int(sys.argv[1])
+pinID = int(plantDict[plantName])
 sleepTime = int(sys.argv[2])
 relay = RelayController(pinID)
 if sleepTime > 0:
