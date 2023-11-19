@@ -1,10 +1,10 @@
 # import sys
 
 # pin - time
-# 14 - 16s - flor noche
-# 15 - 16 - sabila
-# 18 - 10 - potos
-# 23 - 8 - mini sabila
+# 14 - 10s - flor noche
+# 15 - 10 - sabila
+# 18 - 8 - potos
+# 23 - 5 - mini sabila
 
 
 import time
@@ -44,12 +44,13 @@ class RelayController:
 		GPIO.output(self.signalPin, GPIO.LOW)
 
 class Plant:
-	pantPin = 0
+	plantPin = 0
 	waterTime = 0
 	def __init__(self, sigPin, wTime):
-		self.plantPin = sigPin
-		self.waterTime = wTime
-		self.plantRelay = RelayController(self.pantPin)
+		self.plantPin = int(sigPin)
+		self.waterTime = int(wTime)
+		self.plantRelay = RelayController(self.plantPin)
+		self.plantRelay.closeRelay()
 
 	
 	def waterPlant(self):
@@ -57,13 +58,10 @@ class Plant:
 		time.sleep(self.waterTime) # water for defined time
 		self.plantRelay.closeRelay() # stop watering
 
-		
-		
-# Plants: signal pin, water time
-florNoche = Plant(14,16)
-sabila = Plant(15,16)
-potos = Plant(18,10)
-miniSabila = Plant(23,8)
+#florNoche = RelayController(14)
+#sabila = RelayController(15)
+#potos = RelayController(18)
+#miniSabila = RelayController(23)
 
 def waitDays(numDays):
 	secsPerDay = 86400
@@ -72,14 +70,92 @@ def waitDays(numDays):
 		time.sleep(secsPerDay)
 		daysWaited = daysWaited + 1
 
-try:
-	while True:
-		potos.waterPlant()
-		sabila.waterPlant()
-		florNoche.waterPlant()
-		miniSabila.waterPlant()
-		waitDays(7)
-except KeyboardInterrupt:
-	GPIO.cleanup()
+
+# Plants: signal pin, water time
+GPIO.cleanup() #start with a clean setup
+potos = Plant(18,8)
+time.sleep(5)
+
+sabila = Plant(15,10)
+time.sleep(5)
+
+florNoche = Plant(14,10)
+time.sleep(5)
+
+miniSabila = Plant(23,5)
+time.sleep(5)
+
+#try:
+#	while True:
+#	print("watering potos")
+#	print(" ")
+#	potos.waterPlant()
+#	time.sleep(potos.waterTime)
+
+#	print("watering sabila")
+#	print(" ")
+#	sabila.waterPlant()
+#	time.sleep(sabila.waterTime)
+
+#	print("watering flor de noche")
+#	print(" ")
+#	florNoche.waterPlant()
+#	time.sleep(florNoche.waterTime)
+
+#	print("watering mini sabila")
+#	print(" ")
+#	miniSabila.waterPlant()
+#	time.sleep(miniSabila.waterTime)
+
+
+print("watering potos")
+print(" ")
+potos.waterPlant()
+time.sleep(potos.waterTime)
+
+print("watering sabila")
+print(" ")
+sabila.waterPlant()
+time.sleep(sabila.waterTime)
+
+print("watering flor de noche")
+print(" ")
+florNoche.waterPlant()
+time.sleep(florNoche.waterTime)
+
+print("watering mini sabila")
+print(" ")
+miniSabila.waterPlant()
+time.sleep(miniSabila.waterTime)
+
+GPIO.cleanup()
+
+
+#		potos.openRelay()
+#		time.sleep(10)
+#		potos.closeRelay()
+
+#		time.sleep(5)
+
+#		sabila.openRelay()
+#		time.sleep(16)
+#		sabila.closeRelay()
+
+#		time.sleep(5)
+
+#		florNoche.openRelay()
+#		time.sleep(16)
+#		florNoche.closeRelay()
+
+#		time.sleep(5)
+
+#		miniSabila.openRelay()
+#		time.sleep(8)
+#		miniSabila.closeRelay()
+
+#		waitDays(7)
+#except KeyboardInterrupt:
+#	GPIO.cleanup()
 	#sys.stdout.close()
-	pass
+#	pass
+
